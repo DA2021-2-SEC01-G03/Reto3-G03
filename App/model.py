@@ -89,8 +89,12 @@ def llenarFechas(analyzer, ufo):
 def cantidadUfosCiudades(analyzer):
     ciudades = analyzer['ciudades']
     ciudadesList = m.valueSet(ciudades)
+    finalList = lt.newList('ARRAY_LIST')
+
+    for ciudad in lt.iterator(ciudadesList):
+        lt.addLast(finalList, ciudad)
    
-    return ciudadesList
+    return finalList
 
 
 def ufosCiudad(analyzer, ciudad):
