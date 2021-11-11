@@ -1,24 +1,4 @@
-﻿"""
- * Copyright 2020, Departamento de sistemas y Computación
- * Universidad de Los Andes
- *
- *
- * Desarrolado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
- *
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- """
+﻿
 
 import config as cf
 from App import model
@@ -62,6 +42,8 @@ def loadData(analyzer, ufosFile):
     for ufo in input_file:
         model.addUfo(analyzer, ufo)
         model.llenarCiudades(analyzer, ufo)
+        model.llenarHoras(analyzer, ufo)
+        model.llenarFechas(analyzer, ufo)
     return analyzer
 
 # ___________________________________________________
@@ -69,57 +51,38 @@ def loadData(analyzer, ufosFile):
 # ___________________________________________________
 
 
-def crimesSize(analyzer):
-    """
-    Numero de crimenes leidos
-    """
-    return model.crimesSize(analyzer)
+def cantidadUfosCiudades(analyzer):
+    return model.cantidadUfosCiudades(analyzer)
+
+def ufosCiudad(analyzer, ciudad):
+    return model.ufosCiudad(analyzer, ciudad)  
+
+def ufosPorHoraMinutos(analyzer):
+    return model.ufosPorHoraMinutos(analyzer)  
+
+def ufosPorRangoHoras(analyzer, hora1, hora2):
+    return model.ufosRangoHoras(analyzer, hora1, hora2)
+
+def ufosPorFechas(analyzer):
+    return model.ufosPorFechas(analyzer)
+
+def ufosRangoFechas(analyzer, fecha1, fecha2):
+    return model.ufosRangoFechas(analyzer, fecha1, fecha2)
+
+def ufosZonaGeografica(analyzer, latitudInferior, latitudSuperior, longitudInferior, longitudSuperior):
+    return model.ufosZonaGeografica(analyzer, latitudInferior, latitudSuperior, longitudInferior, longitudSuperior)    
 
 
-def indexHeight(analyzer):
-    """
-    Altura del indice (arbol)
-    """
-    return model.indexHeight(analyzer)
 
+# ___________________________________________________
+#  Funciones de ordenamiento
+# ___________________________________________________
 
-def indexSize(analyzer):
-    """
-    Numero de nodos en el arbol
-    """
-    return model.indexSize(analyzer)
+def sortUfosByCities(list):
+    return model.sortUfosByCities(list)
 
+def sortByHours(list):
+    return model.sortHours(list)   
 
-def minKey(analyzer):
-    """
-    La menor llave del arbol
-    """
-    return model.minKey(analyzer)
-
-
-def maxKey(analyzer):
-    """
-    La mayor llave del arbol
-    """
-    return model.maxKey(analyzer)
-
-
-def getCrimesByRange(analyzer, initialDate, finalDate):
-    """
-    Retorna el total de crimenes en un rango de fechas
-    """
-    initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
-    finalDate = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
-    return model.getCrimesByRange(analyzer, initialDate.date(),
-                                  finalDate.date())
-
-
-def getCrimesByRangeCode(analyzer, initialDate,
-                         offensecode):
-    """
-    Retorna el total de crimenes de un tipo especifico en una
-    fecha determinada
-    """
-    initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
-    return model.getCrimesByRangeCode(analyzer, initialDate.date(),
-                                      offensecode)
+def sortByDates(list):
+    return model.sortDates(list)   
