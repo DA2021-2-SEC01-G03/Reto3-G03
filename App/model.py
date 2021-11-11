@@ -57,7 +57,50 @@ def llenarCiudades(analyzer, ufo):
         m.put(mapCiudades, ciudad, dict)
     else:
         m.put(mapCiudades, ciudad, {'ciudad': ciudad, 'cantidad': 1})
-   
+
+def hallarMaximaDur(analyzer):
+    
+    maximo = 0
+    ufosOm = analyzer['ufos']
+    ufosvalues = om.valueSet(ufosOm)
+
+    for ufo in ufosvalues:
+        
+        if ufo['duration'] > maximo:
+
+            maximo = ufo['duration']
+
+
+    return maximo      
+
+def totalAvistamientos(analyzer):
+
+    duracionMax = hallarMaximaDur(analyzer)
+    conteo = 0
+    ufosOm = analyzer['ufos']
+    ufosvalues = om.valueSet(ufosOm)
+
+    for ufo in ufosvalues:
+        if ufo['duration'] == duracionMax:
+            conteo += 1
+ 
+    return (duracionMax, conteo)
+        
+def avistamientosRango(limiteMin: int, limiteMax:int, analyzer):
+
+    ufosOm = analyzer['ufos']
+    ufosvalues = om.valueSet(ufosOm)
+    ufosDentroRango = lt.newList('ARRAY_LIST')
+    for ufo in ufosvalues:
+        if limiteMin < ufo['duration'] > limiteMax:
+            lt.addLast(ufosDentroRango,ufo)
+
+    return ufosDentroRango
+            
+
+    
+    
+
 
 def llenarHoras(analyzer, ufo):
     horas = analyzer['horas']
@@ -259,6 +302,11 @@ def sortHours(list):
 def sortDates(list):
     ms.sort(list, compareDates)      
 
+def sortUfosByDuration(list):
+    ms.sort(list, compareDurationCityCountry)
+
+
+
 # ==============================
 # Funciones de Comparacion
 # ==============================
@@ -289,5 +337,13 @@ def compareDates(date1, date2):
               + str(date2['fecha'][5]) + str(date2['fecha'][6]) + str(date2['fecha'][8]) + str(date2['fecha'][9])  )           
 
     return secondDate > firstDate
+
+def compareDurationCityCountry(ufo1, ufo2):
+     
+    if ufo1['duration'] == ufo2['duration']:
+        return ufo1['city'] + ufo1['country'] > ufo2['city'] + ufo2['country']
+    return ufo1['duration'] > ufo2['duration']
+
+
 
 

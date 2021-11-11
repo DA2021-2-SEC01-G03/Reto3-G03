@@ -109,6 +109,32 @@ def ufosZonaGeografica(analyzer, latitudInferior, latitudSuperior, longitudInfer
         str(ufo['duration (seconds)'])) + ', latitude: ' + str(ufo['latitude']) + ', longitude: ' +
         str(ufo['longitude']) )
 
+def ufosAvistamientosDur(analyzer, limiteMin, limiteMax):
+
+    maxDuracion = controller.ufosMaximadur(analyzer)
+    avistamientosEnRango = controller.avistamientosRango(analyzer, limiteMin, limiteMax)
+    controller.sortByDurationAv(avistamientosEnRango)
+
+    top3 = lt.subList(avistamientosEnRango, 0, 3)
+    bottom3 = lt.subList(avistamientosEnRango, lt.size(avistamientosEnRango)-3,3)
+    print( 'There are ' + str(om.size(analyzer['ufos'])) + ' different durations of ufo sightings') 
+    print( 'The longest ufo sightings are: ')
+    print('duration(seconds) - count')
+    print(str(maxDuracion[0]) + ' | ' + str(maxDuracion[1]))
+    print("There are " + str(lt.size(avistamientosEnRango)) + " UFO sightings between " + str(limiteMin) + ' and ' + str(limiteMax) + ' duration')
+    print("The first 3 and last 3 ufo sightings in the duration time are:")
+    for ufo in lt.iterator(top3):
+        print( 'datetime: ' + str(ufo['datetime']) + ', city: ' + str(ufo['city']) + ', state:'+ str(ufo['state'] 
+        + ', country:' + str(ufo['country']) + ', shape:' + str(ufo['shape']) + ', duration (seconds):' + 
+        str(ufo['duration (seconds)'])) + ', latitude: ' + str(ufo['latitude']) + ', longitude: ' +
+        str(ufo['longitude']) )
+    
+    for ufo in lt.iterator(bottom3):
+        print( 'datetime: ' + str(ufo['datetime']) + ', city: ' + str(ufo['city']) + ', state:'+ str(ufo['state'] 
+        + ', country:' + str(ufo['country']) + ', shape:' + str(ufo['shape']) + ', duration (seconds):' + 
+        str(ufo['duration (seconds)'])) + ', latitude: ' + str(ufo['latitude']) + ', longitude: ' +
+        str(ufo['longitude']) )
+
 
 
 def printMenu():
@@ -144,6 +170,11 @@ while True:
     elif int(inputs[0]) == 3:
         ciudad = input("Ingrese la ciudad a buscar ")
         ufosCiudad(analyzer, ciudad)
+
+    elif int(inputs[0]) == 4:
+        limiteInferior = input("Ingrese limite de duración inferior ")
+        limiteSuperior = input("Ingrese limite de duración superior ")
+        ufosAvistamientosDur(analyzer,limiteInferior,limiteSuperior)
         
     elif int(inputs[0]) == 5:
         limiteInferior = input("Ingrese limite de hora inferior ")

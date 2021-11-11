@@ -57,6 +57,12 @@ def cantidadUfosCiudades(analyzer):
 def ufosCiudad(analyzer, ciudad):
     return model.ufosCiudad(analyzer, ciudad)  
 
+def ufosMaximadur(analyzer):
+    return model.hallarMaximaDur(analyzer)
+
+def avistamientosRango(analyzer, limiteMin, limiteMax):
+    return model.avistamientosRango(analyzer)
+
 def ufosPorHoraMinutos(analyzer):
     return model.ufosPorHoraMinutos(analyzer)  
 
@@ -86,3 +92,6 @@ def sortByHours(list):
 
 def sortByDates(list):
     return model.sortDates(list)   
+
+def sortByDurationAv(list):
+    return model.sortUfosByDuration(list)
