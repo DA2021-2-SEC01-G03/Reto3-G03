@@ -102,6 +102,7 @@ def ufosZonaGeografica(analyzer, latitudInferior, latitudSuperior, longitudInfer
     amountUfos = controller.ufosZonaGeografica(analyzer, latitudInferior, latitudSuperior, longitudInferior, longitudSuperior)[1]
 
     print("There are " + str(amountUfos) + " UFO sightings in the current area")
+    print("")
     print("The first 3 and last 3 ufo sightings in this zone are:")
     for ufo in lt.iterator(lista):
         print( 'datetime: ' + str(ufo['datetime']) + ', city: ' + str(ufo['city']) + ', state:'+ str(ufo['state'] 
